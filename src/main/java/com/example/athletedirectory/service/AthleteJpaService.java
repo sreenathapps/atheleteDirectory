@@ -5,6 +5,9 @@ import com.example.athletedirectory.model.Country;
 import com.example.athletedirectory.repository.AthleteRepository;
 import com.example.athletedirectory.repository.AthleteJpaRepository;
 import com.example.athletedirectory.repository.CountryJpaRepository;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -21,7 +24,8 @@ public class AthleteJpaService implements AthleteRepository {
 
     @Autowired
     private CountryJpaRepository countryJpaRepository;
-    
+    @Autowired
+    private SessionFactory sessionFactory;
     @Override
     public ArrayList<Athlete> getAthletes() {
         List<Athlete> athleteList = athleteJpaRepository.findAll();
@@ -73,11 +77,18 @@ public class AthleteJpaService implements AthleteRepository {
 
     @Override
     public void deleteAthlete(int athleteId) {
-        return;
+        try {
+            Athlete athlete = athleteJpaRepository.findById(athleteId).get();
+            Session session = sessionFactory.getCurrentSession();
+            session.delete(athlete);
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
     }
 
     @Override
     public Country getAthleteCountry(int athleteId) {
-        return null;
+        Athlete athlete = athleteJpaRepository.findById(athleteId).get();
+        return athlete.getCountry();
     }
 }

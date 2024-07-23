@@ -2,6 +2,8 @@ package com.example.athletedirectory.model;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name="athlete")
 public class Athlete {
@@ -11,13 +13,14 @@ public class Athlete {
     private int athleteId;
 
     @Column(name = "name")
-    private String athleteName;
+    private String athleteName; 
 
     @Column(name = "sport")
     private String sport;
 
     @ManyToOne
     @JoinColumn(name = "countryid")
+    @JsonIgnoreProperties("athletes")
     private Country country;
 
     public Athlete() {

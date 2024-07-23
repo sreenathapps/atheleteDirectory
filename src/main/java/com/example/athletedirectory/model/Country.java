@@ -1,9 +1,13 @@
 package com.example.athletedirectory.model;
 
+import java.util.List;
+
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
-@Table(name="country")
+@Table(name = "country")
 public class Country {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,7 +20,18 @@ public class Country {
     @Column(name = "flagimageurl")
     private String flagImageUrl;
 
+    @OneToMany(mappedBy = "country")
+    @JsonIgnoreProperties("country")
+    private List<Athlete> athletes;
+
     public Country() {
+    }
+
+    public Country(int countryId, String countryName, String flagImageUrl, List<Athlete> atheletes) {
+        this.countryId = countryId;
+        this.countryName = countryName;
+        this.flagImageUrl = flagImageUrl;
+        this.athletes = atheletes;
     }
 
     public int getCountryId() {
@@ -42,4 +57,13 @@ public class Country {
     public void setFlagImageUrl(String flagImageUrl) {
         this.flagImageUrl = flagImageUrl;
     }
+
+    public List<Athlete> getAthletes() {
+        return athletes;
+    }
+
+    public void setAthletes(List<Athlete> atheletes) {
+        this.athletes = atheletes;
+    }
+
 }
