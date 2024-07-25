@@ -4,7 +4,9 @@ import com.example.athletedirectory.model.Athlete;
 import com.example.athletedirectory.model.Country;
 import com.example.athletedirectory.service.AthleteJpaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 
@@ -37,6 +39,7 @@ public class AthleteController {
     @DeleteMapping("/countries/athletes/{athleteId}")
     public void deleteAthlete(@PathVariable("athleteId") int athleteId) {
         athleteJpaService.deleteAthlete(athleteId);
+        throw new ResponseStatusException(HttpStatus.NO_CONTENT);
     }
 
     @GetMapping("/athletes/{athleteId}/country")

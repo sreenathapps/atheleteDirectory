@@ -52,7 +52,7 @@ Deletes a country from the `country` table based on the `countryId` and returns 
 
 If the given `countryId` is not found in the `country` table, raise `ResponseStatusException` with `HttpStatus.NOT_FOUND`. 
 
-#### Sample Athlete object when its corresponding Country is deleted
+#### Sample Athlete objecwt when its corresponding Country is deleted
 
 ```json
 {

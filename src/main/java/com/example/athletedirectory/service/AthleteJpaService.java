@@ -82,7 +82,7 @@ public class AthleteJpaService implements AthleteRepository {
             Session session = sessionFactory.getCurrentSession();
             session.delete(athlete);
         } catch (Exception e) {
-            // TODO: handle exception
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
     }
 
