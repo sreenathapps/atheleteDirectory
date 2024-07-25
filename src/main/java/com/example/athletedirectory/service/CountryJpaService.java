@@ -61,7 +61,14 @@ public class CountryJpaService implements CountryRepository {
 
     @Override
     public void deleteCountry(int countryId) {
-        return;
+        try {
+            Country country = countryJpaRepository.findById(countryId).get();
+            List<Athlete> athletes = country.getAthletes();
+            athleteJpaRepository.deleteAll(athletes);
+            countryJpaRepository.deleteById(countryId);
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
     }
 
     @Override

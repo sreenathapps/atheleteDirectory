@@ -78,9 +78,7 @@ public class AthleteJpaService implements AthleteRepository {
     @Override
     public void deleteAthlete(int athleteId) {
         try {
-            Athlete athlete = athleteJpaRepository.findById(athleteId).get();
-            Session session = sessionFactory.getCurrentSession();
-            session.delete(athlete);
+            athleteJpaRepository.deleteById(athleteId);
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
