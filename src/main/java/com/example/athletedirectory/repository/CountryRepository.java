@@ -1,11 +1,14 @@
 package com.example.athletedirectory.repository;
 
-import com.example.athletedirectory.model.Athlete;
-import com.example.athletedirectory.model.Country;
-
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Repository;
+
+import com.example.athletedirectory.model.Athlete;
+import com.example.athletedirectory.model.Country;
+
+@Repository
 public interface CountryRepository {
     ArrayList<Country> getCountries();
     Country getCountryById(int countryId);

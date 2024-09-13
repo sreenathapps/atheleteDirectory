@@ -1,20 +1,18 @@
 package com.example.athletedirectory.service;
 
-import com.example.athletedirectory.model.Athlete;
-import com.example.athletedirectory.model.Country;
-import com.example.athletedirectory.repository.AthleteRepository;
-import com.example.athletedirectory.repository.AthleteJpaRepository;
-import com.example.athletedirectory.repository.CountryJpaRepository;
+import java.util.ArrayList;
+import java.util.List;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.example.athletedirectory.model.Athlete;
+import com.example.athletedirectory.model.Country;
+import com.example.athletedirectory.repository.AthleteJpaRepository;
+import com.example.athletedirectory.repository.AthleteRepository;
+import com.example.athletedirectory.repository.CountryJpaRepository;
 
 @Service
 public class AthleteJpaService implements AthleteRepository {
@@ -24,13 +22,12 @@ public class AthleteJpaService implements AthleteRepository {
 
     @Autowired
     private CountryJpaRepository countryJpaRepository;
-    @Autowired
-    private SessionFactory sessionFactory;
+
     @Override
     public ArrayList<Athlete> getAthletes() {
         List<Athlete> athleteList = athleteJpaRepository.findAll();
-        ArrayList<Athlete> athletes = new ArrayList<>(athleteList);
-        return athletes;
+        return new ArrayList<>(athleteList);
+
     }
 
     @Override
@@ -49,7 +46,7 @@ public class AthleteJpaService implements AthleteRepository {
             Country country = countryJpaRepository.findById(countryId).get();
             athlete.setCountry(country);
             return athleteJpaRepository.save(athlete);
-        } catch(Exception e) {
+        } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
     }

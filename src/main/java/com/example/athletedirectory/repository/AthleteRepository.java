@@ -5,6 +5,9 @@ import com.example.athletedirectory.model.Country;
 
 import java.util.ArrayList;
 
+import org.springframework.stereotype.Repository;
+
+@Repository
 public interface AthleteRepository {
     ArrayList<Athlete> getAthletes();
     Athlete getAthleteById(int athleteId);
